@@ -60,8 +60,18 @@ public class Calculator extends JFrame {
                                 break;
                             case "/":
                                 display.setText(String.valueOf(leftOperand / rightOperand));
-
                                 break;
+                            case "^":
+                                int sum = 0;
+                                for (int i = 0; i < rightOperand; i++) {
+                                }
+                                display.setText(String.valueOf(sum = sum + (int)Math.pow(leftOperand, rightOperand)));
+                                break;
+                            case "√":
+                                int sum1 = 0;
+                                for (int i = 0; i < rightOperand; i++) {
+                                }
+                                display.setText(String.valueOf(sum1 = sum1 +(int)Math.pow(leftOperand, 1/rightOperand)));
                         }
                         leftOperand = Double.parseDouble(display.getText());
                         rightOperand = null;
@@ -94,7 +104,7 @@ public class Calculator extends JFrame {
         buttonPanel.setLayout(buttonLayout);
 
 
-        for (char c : "+-*/C=".toCharArray()) {
+        for (char c : "+-*/C=^√".toCharArray()) {
             JButton button = new JButton(String.valueOf(c));
             button.addActionListener(actionListener);
             buttonPanel.add(button);
