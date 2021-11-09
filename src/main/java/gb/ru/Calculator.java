@@ -9,6 +9,9 @@ import java.awt.event.ActionListener;
 public class Calculator extends JFrame {
 
     private JLabel display;
+    private Double leftOperand;
+    private Double rightOperand;
+    private String operation;
 
     public static void main(String[] args) {
         new Calculator();
@@ -20,7 +23,7 @@ public class Calculator extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        ActionListener actionListener = new ActionListener() {
+        ActionListener numberactionListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JButton source = (JButton) e.getSource();
@@ -37,16 +40,53 @@ public class Calculator extends JFrame {
             }
         };
 
+        ActionListener actionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JButton source = (JButton) e.getSource();
+                String text = source.getText();
+                if ("=".equals(text)) {
+                    rightOperand = Double.parseDouble(display.getText());
+                    if (leftOperand != null) {
+                        switch (operation) {
+                            case "+":
+                                display.setText(String.valueOf(leftOperand + rightOperand));
+                                break;
+                            case "-":
+                                display.setText(String.valueOf(leftOperand - rightOperand));
+                                break;
+                            case "*":
+                                display.setText(String.valueOf(leftOperand * rightOperand));
+                                break;
+                            case "/":
+                                display.setText(String.valueOf(leftOperand / rightOperand));
+
+                                break;
+                        }
+                        leftOperand = Double.parseDouble(display.getText());
+                        rightOperand = null;
+                        operation = null;
+                    }
+                    return;
+                }
+                leftOperand = Double.parseDouble(display.getText());
+                display.setText("0");
+               operation = text;
+            }
+        };
         final JPanel numberPanel = new JPanel();
         final GridLayout numberLayout = new GridLayout (4, 3, 10, 10);
         numberPanel.setLayout(numberLayout);
 
         for (int i = 0; i < 10; i++) {
             JButton button = new JButton(String.valueOf(i));
-            button.addActionListener(actionListener);
+            button.addActionListener(numberactionListener);
             numberPanel.add(button);
         }
-        numberPanel.add(new JButton("."));
+        JButton pointButton = new JButton(".");
+        numberPanel.add(pointButton);
+        pointButton.addActionListener(numberactionListener);
+
         numberPanel.add(new JButton("+/-"));
 
         JPanel buttonPanel = new JPanel();
@@ -55,7 +95,10 @@ public class Calculator extends JFrame {
 
 
         for (char c : "+-*/C=".toCharArray()) {
-            buttonPanel.add(new JButton(String.valueOf(c)));
+            JButton button = new JButton(String.valueOf(c));
+            button.addActionListener(actionListener);
+            buttonPanel.add(button);
+
         }
 
         display = new JLabel("0");
