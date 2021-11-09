@@ -72,6 +72,14 @@ public class Calculator extends JFrame {
                                 for (int i = 0; i < rightOperand; i++) {
                                 }
                                 display.setText(String.valueOf(sum1 = sum1 +(int)Math.pow(leftOperand, 1/rightOperand)));
+                            case "s":
+                                display.setText((String.valueOf(Math.sin(leftOperand))) + "(radians)");
+                            case "c":
+                                display.setText((String.valueOf(Math.cos(leftOperand))) + "(radians)");
+                            case "t":
+                                display.setText((String.valueOf(Math.tan(leftOperand))) + "(radians)");
+
+
                         }
                         leftOperand = Double.parseDouble(display.getText());
                         rightOperand = null;
@@ -104,7 +112,7 @@ public class Calculator extends JFrame {
         buttonPanel.setLayout(buttonLayout);
 
 
-        for (char c : "+-*/C=^√".toCharArray()) {
+        for (char c : "+-*/C=^√sct".toCharArray()) {
             JButton button = new JButton(String.valueOf(c));
             button.addActionListener(actionListener);
             buttonPanel.add(button);
