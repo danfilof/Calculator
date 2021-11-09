@@ -13,6 +13,10 @@ public class Calculator extends JFrame {
     private Double rightOperand;
     private String operation;
 
+    private Double dAngle;
+    private int sum;
+    private int sum1;
+
     public static void main(String[] args) {
         new Calculator();
     }
@@ -62,24 +66,25 @@ public class Calculator extends JFrame {
                                 display.setText(String.valueOf(leftOperand / rightOperand));
                                 break;
                             case "^":
-                                int sum = 0;
-                                for (int i = 0; i < rightOperand; i++) {
-                                }
+                                sum = 0;
                                 display.setText(String.valueOf(sum = sum + (int)Math.pow(leftOperand, rightOperand)));
                                 break;
                             case "√":
-                                int sum1 = 0;
-                                for (int i = 0; i < rightOperand; i++) {
-                                }
+                                sum1 = 0;
                                 display.setText(String.valueOf(sum1 = sum1 +(int)Math.pow(leftOperand, 1/rightOperand)));
+                                break;
                             case "s":
-                                display.setText((String.valueOf(Math.sin(leftOperand))) + "(radians)");
+                                dAngle = Math.toRadians(leftOperand);
+                                display.setText((String.valueOf(Math.sin(dAngle))));
+                                break;
                             case "c":
-                                display.setText((String.valueOf(Math.cos(leftOperand))) + "(radians)");
+                                dAngle = Math.toRadians(leftOperand);
+                                display.setText((String.valueOf(Math.cos(dAngle))));
+                                break;
                             case "t":
-                                display.setText((String.valueOf(Math.tan(leftOperand))) + "(radians)");
-
-
+                                dAngle = Math.toRadians(leftOperand);
+                                display.setText((String.valueOf(Math.tan(dAngle))));
+                                break;
                         }
                         leftOperand = Double.parseDouble(display.getText());
                         rightOperand = null;
@@ -89,7 +94,7 @@ public class Calculator extends JFrame {
                 }
                 leftOperand = Double.parseDouble(display.getText());
                 display.setText("0");
-               operation = text;
+                operation = text;
             }
         };
         final JPanel numberPanel = new JPanel();
