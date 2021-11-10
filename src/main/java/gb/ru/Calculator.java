@@ -5,6 +5,8 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.RoundingMode;
+import java.text.DecimalFormat; // Импортирую субкласс для округления результатов
 
 public class Calculator extends JFrame {
 
@@ -16,6 +18,9 @@ public class Calculator extends JFrame {
     private Double dAngle;
     private int sum;
     private int sum1;
+    private long fact;
+    private static final DecimalFormat df = new DecimalFormat("0.00"); // Задаю значение округлению, 2 цифры после запятой
+
 
     public static void main(String[] args) {
         new Calculator();
@@ -54,36 +59,36 @@ public class Calculator extends JFrame {
                     if (leftOperand != null) {
                         switch (operation) {
                             case "+":
-                                display.setText(String.valueOf(leftOperand + rightOperand));
+                                display.setText(String.valueOf(df.format(leftOperand + rightOperand)));
                                 break;
                             case "-":
-                                display.setText(String.valueOf(leftOperand - rightOperand));
+                                display.setText(String.valueOf(df.format(leftOperand - rightOperand)));
                                 break;
                             case "*":
-                                display.setText(String.valueOf(leftOperand * rightOperand));
+                                display.setText(String.valueOf(df.format(leftOperand * rightOperand)));
                                 break;
                             case "/":
-                                display.setText(String.valueOf(leftOperand / rightOperand));
+                                display.setText(String.valueOf(df.format(leftOperand / rightOperand)));
                                 break;
                             case "^":
                                 sum = 0;
-                                display.setText(String.valueOf(sum = sum + (int)Math.pow(leftOperand, rightOperand)));
+                                display.setText(String.valueOf(df.format(sum = sum + (int)Math.pow(leftOperand, rightOperand))));
                                 break;
                             case "√":
                                 sum1 = 0;
-                                display.setText(String.valueOf(sum1 = sum1 +(int)Math.pow(leftOperand, 1/rightOperand)));
+                                display.setText(String.valueOf(df.format(sum1 = sum1 +(int)Math.pow(leftOperand, 1/rightOperand))));
                                 break;
                             case "s":
-                                dAngle = Math.toRadians(leftOperand);
-                                display.setText((String.valueOf(Math.sin(dAngle))));
+                                dAngle = Math.toRadians(leftOperand); // Перевожу радианы в градусы
+                                display.setText((String.valueOf(df.format(Math.sin(dAngle)))));
                                 break;
                             case "c":
                                 dAngle = Math.toRadians(leftOperand);
-                                display.setText((String.valueOf(Math.cos(dAngle))));
+                                display.setText((String.valueOf(df.format(Math.cos(dAngle)))));
                                 break;
                             case "t":
                                 dAngle = Math.toRadians(leftOperand);
-                                display.setText((String.valueOf(Math.tan(dAngle))));
+                                display.setText((String.valueOf(df.format(Math.tan(dAngle)))));
                                 break;
                         }
                         leftOperand = Double.parseDouble(display.getText());
@@ -125,10 +130,10 @@ public class Calculator extends JFrame {
         }
 
         display = new JLabel("0");
-        display.setHorizontalAlignment(SwingConstants.RIGHT);
-        display.setFont(new Font("Arial", Font.BOLD, 17));
+        display.setHorizontalAlignment(SwingConstants.LEFT);
+        display.setFont(new Font("Arial", Font.BOLD, 32));
         add(display, BorderLayout.NORTH);
-        add(numberPanel, BorderLayout.CENTER);
+        add(numberPanel, BorderLayout.EAST);
         add(buttonPanel, BorderLayout.SOUTH);
 
 
